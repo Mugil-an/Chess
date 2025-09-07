@@ -14,10 +14,10 @@ class GameManager {
         this.addHandler(socket);
     }
     removeUser(socket) {
-        this.users = this.users.filter(user => user !== socket);
+        this.users = this.users.filter((user) => user !== socket);
     }
     addHandler(socket) {
-        socket.on('message', (data) => {
+        socket.on("message", (data) => {
             const message = JSON.parse(data.toString());
             if (message.type === message_1.INIT_GAME) {
                 if (this.pendingUser) {
@@ -30,10 +30,9 @@ class GameManager {
                 }
             }
             if (message.type === message_1.MOVE) {
-                console.log("reaches move");
-                const game = this.games.find(game => game.player1 == socket || game.player2 == socket);
+                const game = this.games.find((game) => game.player1 === socket || game.player2 === socket);
                 if (game) {
-                    game.makeMove(socket, message.move);
+                    game.makeMove(socket, message.payload.move);
                 }
             }
         });
